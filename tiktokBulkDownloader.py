@@ -28,9 +28,15 @@ copy(videoLinks.join('\n'));
 7. (Optional) Export your TikTok session cookies to a file named "cookies.txt"
   if you need to download private or restricted videos.
 8. Run the script via:
-     python3 tiktokFavLinksDownload.py [--cookies]
-  Use the --cookies option if you have cookies.txt in this directory
-  for authenticated downloads.
+
+     python3 tiktokFavLinksDownload.py
+
+      Optional Flags:
+
+    --cookies: Use this if you have saved a cookies.txt file for private or restricted videos.
+    --links <filename>: Specify a custom file containing TikTok video URLs (default is links.txt).
+    --watermark: Use this if you want the TikTok watermark on your videos. I've noticed that the download speed may be slower if you use this option,
+    and some videos that otherwise download successfully may fail.
 
 The script prompts for a download directory, saves each video there,
 and logs failed downloads along with errors in a timestamped log file.
@@ -77,7 +83,7 @@ def save_metadata_to_csv():
         writer.writerow(["Upload Date", "Uploader", "Title", "URL", "Filename", "Duration (sec)", "View Count", "Like Count", "Comment Count", "Repost Count", "Resolution"])
         writer.writerows(downloaded_metadata)
 
-def download_with_ytdlp(links, download_dir, use_cookies=False):
+def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=False):
     """
     Bulk-downloads a list of TikTok videos using yt-dlp and logs metadata.
 
@@ -88,6 +94,8 @@ def download_with_ytdlp(links, download_dir, use_cookies=False):
     :param use_cookies: Whether to append --cookies cookies.txt to yt-dlp
                         commands for authenticated requests
     :type use_cookies: bool
+    :param use_watermark: Whether to use the "download" format (watermarked videos)
+    :type use_watermark: bool
     :return: None
     """
     print("Starting download_with_ytdlp function...")
@@ -178,8 +186,10 @@ def download_with_ytdlp(links, download_dir, use_cookies=False):
                 "yt-dlp",
                 "--progress",
                 "--no-warnings",
-                "-o", output_path
+                "-o", output_path,
             ]
+            if use_watermark:
+                cmd_download += ["--format", "download"]
             if use_cookies:
                 cmd_download += ["--cookies", "cookies.txt"]
             cmd_download.append(link)
@@ -226,7 +236,7 @@ def download_with_ytdlp(links, download_dir, use_cookies=False):
     # Retry logic for failed links
     if failed_links:
         print(f"\nRe-attempting download for {len(failed_links)} failed links...\n")
-        download_with_ytdlp(failed_links, download_dir, use_cookies=use_cookies)
+        download_with_ytdlp(failed_links, download_dir, use_cookies=use_cookies, use_watermark=use_watermark)
 
     # Save metadata one final time after retries
     save_metadata_to_csv()
@@ -249,18 +259,19 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
 
     # Recognized arguments
-    valid_args = {"--cookies", "--links"}
+    valid_args = {"--cookies", "--links", "--watermark"}
     provided_args = set(arg for arg in sys.argv[1:] if arg.startswith("-"))
     invalid_args = provided_args - valid_args
 
     # Check for invalid arguments
     if invalid_args:
         print(f"Error: Unrecognized argument(s): {', '.join(invalid_args)}")
-        print("Usage: python tiktokBulkDownloader.py [--cookies] [--links <filename>]")
+        print("Usage: python tiktokBulkDownloader.py [--cookies] [--links <filename>] [--watermark]")
         return
 
     # Check for cookies and custom links file arguments
     use_cookies = "--cookies" in sys.argv
+    use_watermark = "--watermark" in sys.argv
     links_arg_index = sys.argv.index("--links") + 1 if "--links" in sys.argv else None
 
     # Validate links file argument if provided
@@ -269,7 +280,7 @@ def main():
         links_arg_index >= len(sys.argv) or sys.argv[links_arg_index].startswith("-")
     ):
         print("Error: Missing filename after '--links'.")
-        print("Usage: python tiktokBulkDownloader.py [--cookies] [--links <filename>]")
+        print("Usage: python tiktokBulkDownloader.py [--cookies] [--links <filename>] [--watermark]")
         return
 
     # Prompt for directory to store downloads
@@ -301,7 +312,7 @@ def main():
         return
 
     print(f"Found {len(links)} links. Starting download...")
-    download_with_ytdlp(links, download_dir, use_cookies=use_cookies)
+    download_with_ytdlp(links, download_dir, use_cookies=use_cookies, use_watermark=use_watermark)
 
     # At the end of execution, print where metadata was saved
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
