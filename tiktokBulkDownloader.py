@@ -83,6 +83,33 @@ def save_metadata_to_csv():
         writer.writerow(["Upload Date", "Uploader", "Title", "URL", "Filename", "Duration (sec)", "View Count", "Like Count", "Comment Count", "Repost Count", "Resolution"])
         writer.writerows(downloaded_metadata)
 
+def clean_links_file(input_file):
+    """
+    Cleans the input links file by removing extraneous lines and prefixes, leaving only a pure list of links.
+    Returns the cleaned list of links.
+
+    :param input_file: Path to the input file
+    :type input_file: str
+    :return: List of cleaned links
+    :rtype: list[str]
+    """
+    cleaned_links = []
+    try:
+        with open(input_file, "r", encoding="utf-8") as file:
+            for line in file:
+                line = line.strip()
+                # Skip blank lines and lines starting with "Date:"
+                if not line or line.startswith("Date:"):
+                    continue
+                # Remove "Link: " prefix if present
+                if line.startswith("Link: "):
+                    line = line.replace("Link: ", "")
+                # Add the cleaned link to the list
+                cleaned_links.append(line)
+    except Exception as e:
+        print(f"Error reading or cleaning the input file: {e}")
+    return cleaned_links
+
 def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=False):
     """
     Bulk-downloads a list of TikTok videos using yt-dlp and logs metadata.
@@ -303,12 +330,11 @@ def main():
         print(f"Input file '{input_file}' not found. Please create it and add your video links.")
         return
 
-    # Read in all non-blank lines
-    with open(input_file, "r") as file:
-        links = [line.strip() for line in file if line.strip()]
+    # Clean the input file to extract only valid links
+    links = clean_links_file(input_file)
 
     if not links:
-        print("No links found in the input file.")
+        print("No valid links found in the input file.")
         return
 
     print(f"Found {len(links)} links. Starting download...")
