@@ -45,7 +45,7 @@ This Python script enables users to batch download TikTok videos efficiently usi
      ```javascript
      const videoLinks = [...document.querySelectorAll('a[href*="/video/"]')].map(a => a.href);
      console.log(`Total video links found: ${videoLinks.length}`);
-     copy(videoLinks.join('\n'));
+     copy(videoLinks.join('\\n'));
      ```
    - Paste the links into a text file and name it `links.txt`. Save it in the script’s directory.
 
@@ -63,7 +63,18 @@ This Python script enables users to batch download TikTok videos efficiently usi
 3. **Specify Download Directory**
    - The script will prompt you to enter a directory for saving videos. If it doesn’t exist, it will be created.
 
-4. **Check Logs**
+4. **File Naming Format**
+   - Videos are saved with a descriptive filename that includes:
+     - The video’s upload date (e.g., `YYYY-MM-DD`)
+     - The uploader's username
+     - The video's title
+   - Example filename:
+     ```
+     2025-01-11 - turkeybasterroulette - Funny Cooking Tricks.mp4
+     ```
+   - Invalid characters in the title or username are replaced with underscores (`_`) to ensure compatibility.
+
+5. **Check Logs**
    - A log file will be generated in the format YYYY-MM-DD_HH-MM_download_log.csv, containing metadata for all successfully downloaded videos, including details such as upload date, uploader, title, duration, and resolution.
    - In the event of any failed downloads, a separate log file will be created in the format YYYY-MM-DD_HH-MM_failed_downloads_log.txt, documenting the failed video links along with detailed error messages for troubleshooting.
 
