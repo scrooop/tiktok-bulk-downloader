@@ -64,13 +64,9 @@ This Python script enables users to batch download TikTok videos efficiently usi
    - The script will prompt you to enter a directory for saving videos. If it doesn’t exist, it will be created.
 
 4. **File Naming Format**
-   - Videos are saved with a descriptive filename that includes:
-     - The video’s upload date (e.g., `YYYY-MM-DD`)
-     - The uploader's username
-     - The video's title
-   - Example filename:
+   - Videos are saved with a descriptive filename (upload date, creator, title) with the following format:
      ```
-     2025-01-11 - turkeybasterroulette - Funny Cooking Tricks.mp4
+     YYYY-MM-DD - creator username - video title.mp4
      ```
    - Invalid characters in the title or username are replaced with underscores (`_`) to ensure compatibility.
 
