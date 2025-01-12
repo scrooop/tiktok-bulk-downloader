@@ -26,8 +26,20 @@ This Python script enables users to batch download TikTok videos efficiently usi
 ### Usage Instructions
 
 1. **Prepare Your URL List**
+   
+   #### Method 1: Using TikTok's "Download Your Data" Tool
+   - Go to [TikTok's "Download Your Data" page](https://www.tiktok.com/setting/download-your-data) and request your data in **TXT format**.
+   - Wait for TikTok to generate the data file, then download it once it's ready.
+   - Locate the specific file that contains the video links, such as `Favorite Videos.txt` for favorited videos or `Like List.txt` for liked videos.
+   - Use the `--links` argument to specify this file when running the script:
+     ```bash
+     python3 tiktokBulkDownloader.py --links <filename>
+     ```
+   - The script will automatically process the file, extracting the links and creating a pure list of video URLs before proceeding with the download.
+
+   #### Method 2: Manually Choose Any Page from Which to Download All Videos
    - Log in to TikTok via your browser.
-   - Navigate to the desired video page (e.g., Profile > Favorites, Profile > Liked, Creator's Profile page, etc).
+   - Navigate to the desired video page (e.g., Profile > Favorites, Profile > Liked, Creator's Profile page, etc.).
    - Scroll to the bottom of the page to load all videos.
    - Open developer tools, click **Console**, and run:
      ```javascript
