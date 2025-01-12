@@ -55,6 +55,9 @@ import signal
 # Global variable to track metadata during script execution
 downloaded_metadata = []
 
+# Global variable to prevent multiple retries
+retry_attempted = False
+
 def signal_handler(signal_received, frame):
     """
     Handle interruption signals (e.g., Ctrl-C).
@@ -110,6 +113,9 @@ def clean_links_file(input_file):
         print(f"Error reading or cleaning the input file: {e}")
     return cleaned_links
 
+# Global variable to prevent multiple retries
+retry_attempted = False
+
 def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=False):
     """
     Bulk-downloads a list of TikTok videos using yt-dlp and logs metadata.
@@ -125,6 +131,7 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
     :type use_watermark: bool
     :return: None
     """
+    global retry_attempted
     print("Starting download_with_ytdlp function...")
 
     # Ensure the download directory exists, or attempt creation
@@ -153,7 +160,6 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
     # Iterate through each link
     for index, link in enumerate(links, start=1):
         try:
-            # Print exactly one blank line before the [index/total] line
             print()
             print(f"[{index}/{total_links}]: {link}")
 
@@ -163,7 +169,6 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
                 cmd_metadata += ["--cookies", "cookies.txt"]
             cmd_metadata.append(link)
 
-            # Capture JSON metadata from yt-dlp
             result = subprocess.run(
                 cmd_metadata,
                 capture_output=True,
@@ -221,7 +226,6 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
                 cmd_download += ["--cookies", "cookies.txt"]
             cmd_download.append(link)
 
-            # Print a blank line before the progress bar
             print()
             subprocess.run(cmd_download, check=True)
 
@@ -246,34 +250,30 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
         except Exception as e:
             print(" FAILED")
             failed_downloads += 1
-            failed_links.append(link)  # Collect the failed link
+            failed_links.append(link)
 
             # Log the error details to the timestamped log file
             with open(failed_log_file, "a", encoding="utf-8") as f:
-                sanitized_link = link.strip() if link else "(Invalid or missing link)"
-                error_message = str(e).strip()
-                f.write(f"[{index}/{total_links}]\n")
-                if '\n' in error_message:
-                    error_lines = error_message.split('\n', 1)
-                    f.write(f"Error: {error_lines[0]}\n{error_lines[1]}\n")
-                else:
-                    f.write(f"Error: {error_message}\n")
-                f.write("-" * 40 + "\n")
+                f.write(f"{link}\nError: {str(e).strip()}\n{'-' * 40}\n")
 
     # Retry logic for failed links
-    if failed_links:
+    if failed_links and not retry_attempted:
+        retry_attempted = True
         print(f"\nRe-attempting download for {len(failed_links)} failed links...\n")
         download_with_ytdlp(failed_links, download_dir, use_cookies=use_cookies, use_watermark=use_watermark)
+    elif failed_links:
+        print("\nSome downloads still failed after one retry. Check the failed downloads log for details.")
+        with open(failed_log_file, "a", encoding="utf-8") as f:
+            f.write("\nFailed links after retry:\n")
+            for link in failed_links:
+                f.write(f"{link}\n")
 
-    # Save metadata one final time after retries
-    save_metadata_to_csv()
-
-    # Final summary
-    print("\nDownload process complete.")
-    print(f"Successful downloads: {successful_downloads}/{total_links}")
-    print(f"Failed downloads: {failed_downloads}/{total_links}")
-    if failed_downloads > 0 and not use_cookies:
-        print("Retrying with cookies (using '--cookies') may allow successful downloads for the failed links.")
+    # Final summary only printed once
+    if not retry_attempted or not failed_links:
+        save_metadata_to_csv()
+        print("\nDownload process complete.")
+        print(f"Successful downloads: {successful_downloads}/{total_links}")
+        print(f"Failed downloads: {failed_downloads}/{total_links}")
 
 
 def main():
