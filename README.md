@@ -1,6 +1,6 @@
 # TikTok Bulk Downloader
 
-Welcome to the TikTok Bulk Downloader. With the TikTok ban in about a week I wanted to download all of my Favorited videos but realized there isn’t a reliable way to do that, so I threw this together – the first thing I’ve put on GitHub.
+With the TikTok ban in about a week, I wanted to download all of the videos in my Favorites list, but realized there isn’t a reliable way to do that, so I threw this together – the first thing I’ve put on GitHub. I hope it's useful. You do need to follow the instructions here to get it to work, but it's fairly straightforward. If anything is unclear please let me know and I will answer your questions and improve the script/this page.
 
 This Python script enables users to download multiple TikTok videos efficiently using a user-generated list of video URLs (e.g., all of your Favorites, all of your Liked, all videos posted by a specific user, etc.). With a the TikTok ban approaching, this tool provides an easy way to save large amounts of videos with a single click.
 
