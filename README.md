@@ -41,11 +41,12 @@ This Python script enables users to batch download TikTok videos efficiently usi
    - Open Terminal and navigate to the directory containing the script.
    - Execute the script with the following command:
      ```bash
-     python3 tiktokBulkDownloader.py [--cookies] [--links <filename>]
+     python3 tiktokBulkDownloader.py [--cookies] [--links <filename>] [--watermark]
      ```
    - Optional Flags:
      - `--cookies`: Use this if you have saved a `cookies.txt` file for private or restricted videos.
      - `--links <filename>`: Specify a custom file containing TikTok video URLs (default is `links.txt`).
+     - `--watermark`: Use this if you want the TikTok watermark on your videos. I've noticed that the download speed may be slower if you use this option, and some videos that otherwise download successfully may fail.
 
 3. **Specify Download Directory**
    - The script will prompt you to enter a directory for saving videos. If it doesn’t exist, it will be created.
