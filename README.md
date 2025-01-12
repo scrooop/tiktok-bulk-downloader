@@ -27,7 +27,7 @@ This Python script enables users to batch download TikTok videos efficiently usi
 
 1. **Prepare Your URL List**
    - Log in to TikTok via your browser.
-   - Navigate to the desired video page (e.g., your Favorites).
+   - Navigate to the desired video page (e.g., Profile > Favorites, Profile > Liked, Creator's Profile page, etc).
    - Scroll to the bottom of the page to load all videos.
    - Open developer tools, click **Console**, and run:
      ```javascript
