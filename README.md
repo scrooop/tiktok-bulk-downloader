@@ -4,6 +4,7 @@ With the TikTok ban in about a week, I wanted to download all of the videos in m
 
 This Python script enables users to batch download TikTok videos efficiently using a user-generated list of video URLs (e.g., all of your Favorites, all of your Liked, all videos posted by a specific user, etc.) at once.
 
+---
 
 ## Getting Started
 
