@@ -10,15 +10,10 @@ This Python script enables users to batch download TikTok videos efficiently usi
 
 ### Prerequisites
 
-1. **Install Python 3.6+**
-   - Check if Python is installed. Open Terminal and type:
-     ```bash
-     python3 --version
-     ```
-   - Download Python from [python.org](https://www.python.org/) if needed.
+1. Save tiktokBulkDownloader.py to a new directory.
 
 2. **Install yt-dlp**
-   - The script relies on [yt-dlp](https://github.com/yt-dlp/yt-dlp). In the terminal type:
+   - The script relies on [yt-dlp](https://github.com/yt-dlp/yt-dlp). If you don't have it, in the terminal type:
      ```bash
      pip install yt-dlp
      ```
@@ -43,7 +38,7 @@ This Python script enables users to batch download TikTok videos efficiently usi
    - Paste the links into a text file and name it `links.txt`. Save it in the script’s directory.
 
 2. **Run the Script**
-   - Open a terminal in the script’s directory.
+   - Open Terminal and navigate to the directory containing the script.
    - Execute the script with the following command:
      ```bash
      python3 tiktokBulkDownloader.py [--cookies] [--links <filename>]
