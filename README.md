@@ -52,7 +52,8 @@ This Python script enables users to batch download TikTok videos efficiently usi
    - The script will prompt you to enter a directory for saving videos. If it doesn’t exist, it will be created.
 
 4. **Check Logs**
-   - A log file will be generated in the format `YYYY-MM-DD_HH-MM_download_log.csv`, containing metadata for downloaded videos.
+   - A log file will be generated in the format YYYY-MM-DD_HH-MM_download_log.csv, containing metadata for all successfully downloaded videos, including details such as upload date, uploader, title, duration, and resolution.
+   - In the event of any failed downloads, a separate log file will be created in the format YYYY-MM-DD_HH-MM_failed_downloads_log.txt, documenting the failed video links along with detailed error messages for troubleshooting.
 
 ---
 
