@@ -21,7 +21,7 @@ This Python script enables users to batch download TikTok videos efficiently usi
      ```
 
 3. **(Optional) Export TikTok Cookies**
-   - Any videos from private or restricted accounts will fail; if you want to download them sucecssfully you need to provide the script with the session cookies after logging into TikTok. The easiest way to do this is using a browser extension like [this one](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc). Log into TikTok on your browser, click the extension, select Export As, and save the file as `cookies.txt` in the same folder as the python script. Then run the script and use the --cookies option (see below).
+   - Any videos from private or restricted accounts will fail; if you want to download them sucecssfully you need to provide the script with your session cookies after you log into TikTok. The easiest way to do this is using a browser extension like [this one](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc). Log into TikTok on your browser, click the extension, select Export As, and save the file as `cookies.txt` in the same folder as the python script. Then run the script and use the --cookies option (see below).
 
 ---
 
