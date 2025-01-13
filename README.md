@@ -47,7 +47,7 @@ This Python script enables users to batch download TikTok videos efficiently usi
      ```javascript
      const videoLinks = [...document.querySelectorAll('a[href*="/video/"]')].map(a => a.href);
      console.log(`Total video links found: ${videoLinks.length}`);
-     copy(videoLinks.join('\\n'));
+     copy(videoLinks.join('\n'));
      ```
    - Paste the links into a text file and name it `links.txt`. Save it in the script’s directory.
 
