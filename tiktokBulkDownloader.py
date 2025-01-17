@@ -1,48 +1,3 @@
-# TikTok Videos Bulk Downloader
-
-#### TO DO:
-# prepend each video with creator's username
-
-'''
-This script allows you to bulk download TikTok videos from a list of URLs.
-It leverages the yt-dlp tool for video extraction and supports using cookies
-for authenticated downloads of restricted or private videos.
-
-Usage:
-
-Before running the script:
-
-1. Open your browser and log in to TikTok.
-2. Go to the page from which you want to download all videos. For example, if you want to download all of your Favorited videos,
-    navigate to your profile page, then click Favorites.
-3. Scroll all the way to the bottom of the page to load all of the videos on that page.
-4. Open developer tools (right-click > Inspect) and click Console.
-5. Run the following command in the console to copy all video links to your clipboard:
-
-const videoLinks = [...document.querySelectorAll('a[href*="/video/"]')].map(a => a.href);
-console.log(`Total video links found: ${videoLinks.length}`);
-console.log(videoLinks);
-copy(videoLinks.join('\n'));
-
-6. Paste the links into a text file and save it as links.txt in the same directory as this script (should contain one TikTok video URL per line).
-7. (Optional) Export your TikTok session cookies to a file named "cookies.txt"
-  if you need to download private or restricted videos.
-8. Run the script via:
-
-     python3 tiktokFavLinksDownload.py
-
-      Optional Flags:
-
-    --cookies: Use this if you have saved a cookies.txt file for private or restricted videos.
-    --links <filename>: Specify a custom file containing TikTok video URLs (default is links.txt).
-    --watermark: Use this if you want the TikTok watermark on your videos. I've noticed that the download speed may be slower if you use this option,
-    and some videos that otherwise download successfully may fail.
-
-The script prompts for a download directory, saves each video there,
-and logs failed downloads along with errors in a timestamped log file.
-
-'''
-
 import os
 import sys
 import subprocess
@@ -204,48 +159,65 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
             title_sanit = re.sub(r'[<>:"/\\|?*]', '_', metadata["title"])
             combined_filename = f"{upload_date_sanit} - {uploader_sanit} - {title_sanit}"
 
+            def truncate_filename(length):
+                """Helper function to truncate the filename to a specific length."""
+                return combined_filename[:length]
+
             # Enforce OS constraints
             available_length = max_path_length - len(os.path.abspath(download_dir)) - len(ext) - 1
             if len(combined_filename) > available_length:
                 print(f"\n[INFO] Filename truncated: '{combined_filename}' -> '{combined_filename[:available_length]}'")
-                combined_filename = combined_filename[:available_length]
+                combined_filename = truncate_filename(available_length)
 
             # Final output path with ".mp4"
             output_path = os.path.join(download_dir, f"{combined_filename}{ext}")
 
-            # Step 2: Download the video with the newly formatted filename
-            cmd_download = [
-                "yt-dlp",
-                "--progress",
-                "--no-warnings",
-                "-o", output_path,
-            ]
-            if use_watermark:
-                cmd_download += ["--format", "download"]
-            if use_cookies:
-                cmd_download += ["--cookies", "cookies.txt"]
-            cmd_download.append(link)
+            # Retry logic for file name too long error
+            for truncation_length in [available_length, 30]:
+                try:
+                    cmd_download = [
+                        "yt-dlp",
+                        "--progress",
+                        "--no-warnings",
+                        "-o", output_path,
+                    ]
+                    if use_watermark:
+                        cmd_download += ["--format", "download"]
+                    if use_cookies:
+                        cmd_download += ["--cookies", "cookies.txt"]
+                    cmd_download.append(link)
 
-            print()
-            subprocess.run(cmd_download, check=True)
+                    print()
+                    subprocess.run(cmd_download, check=True)
 
-            # Append metadata to the global list for logging
-            downloaded_metadata.append([
-                metadata["upload_date"],
-                metadata["uploader"],
-                metadata["title"],
-                metadata["url"],
-                combined_filename,
-                metadata["duration"],
-                metadata["view_count"],
-                metadata["like_count"],
-                metadata["comment_count"],
-                metadata["repost_count"],
-                metadata["resolution"],
-            ])
+                    # Append metadata to the global list for logging
+                    downloaded_metadata.append([
+                        metadata["upload_date"],
+                        metadata["uploader"],
+                        metadata["title"],
+                        metadata["url"],
+                        combined_filename,
+                        metadata["duration"],
+                        metadata["view_count"],
+                        metadata["like_count"],
+                        metadata["comment_count"],
+                        metadata["repost_count"],
+                        metadata["resolution"],
+                    ])
 
-            print(" SUCCESS")
-            successful_downloads += 1
+                    print(" SUCCESS")
+                    successful_downloads += 1
+                    break
+                except OSError as e:
+                    if "File name too long" in str(e):
+                        print(f"[WARN] Retrying with aggressive truncation ({truncation_length} chars)")
+                        combined_filename = truncate_filename(truncation_length)
+                        output_path = os.path.join(download_dir, f"{combined_filename}{ext}")
+                        continue
+                    raise
+            else:
+                # If it still fails, log the error and move on
+                raise Exception(f"Failed to download {link} after aggressive truncation.")
 
         except Exception as e:
             print(" FAILED")
@@ -274,7 +246,6 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
         print("\nDownload process complete.")
         print(f"Successful downloads: {successful_downloads}/{total_links}")
         print(f"Failed downloads: {failed_downloads}/{total_links}")
-
 
 def main():
     """
@@ -343,7 +314,6 @@ def main():
     # At the end of execution, print where metadata was saved
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
     print(f"Downloaded video information saved to {current_time}_download_log.csv")
-
 
 if __name__ == "__main__":
     main()
