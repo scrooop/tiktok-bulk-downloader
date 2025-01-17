@@ -272,13 +272,25 @@ def main():
     use_watermark = "--watermark" in sys.argv
     links_arg_index = sys.argv.index("--links") + 1 if "--links" in sys.argv else None
 
-    # Validate links file argument if provided
-    input_file = sys.argv[links_arg_index] if links_arg_index else "links.txt"
-    if links_arg_index and (
-        links_arg_index >= len(sys.argv) or sys.argv[links_arg_index].startswith("-")
-    ):
-        print("Error: Missing filename after '--links'.")
-        print("Usage: python tiktokBulkDownloader.py [--cookies] [--links <filename>] [--watermark]")
+    # Validate links argument if provided
+    links_arg = sys.argv[links_arg_index] if links_arg_index else "links.txt"
+    links = []
+
+    # Check if the --links argument contains a single URL or a file path
+    if re.match(r'https?://', links_arg):
+        # If the argument looks like a URL, treat it as a single link
+        links = [links_arg.strip()]
+    else:
+        # Otherwise, assume it is a file path and validate the file
+        if not os.path.exists(links_arg):
+            print(f"Input file '{links_arg}' not found. Please create it and add your video links.")
+            return
+        # Clean the input file to extract only valid links
+        links = clean_links_file(links_arg)
+
+    # Ensure there are valid links to process
+    if not links:
+        print("No valid links found.")
         return
 
     # Prompt for directory to store downloads
