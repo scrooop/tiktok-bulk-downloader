@@ -308,18 +308,6 @@ def main():
             print(f"Failed to create directory {download_dir}: {e}")
             return
 
-    # Validate input file existence
-    if not os.path.exists(input_file):
-        print(f"Input file '{input_file}' not found. Please create it and add your video links.")
-        return
-
-    # Clean the input file to extract only valid links
-    links = clean_links_file(input_file)
-
-    if not links:
-        print("No valid links found in the input file.")
-        return
-
     print(f"Found {len(links)} links. Starting download...")
     download_with_ytdlp(links, download_dir, use_cookies=use_cookies, use_watermark=use_watermark)
 
