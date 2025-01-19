@@ -1,3 +1,8 @@
+=======
+> [!IMPORTANT]
+> ⚠️ **TikTok is now banned in the United States.** As a result, this script no longer functions from U.S.-based networks. To resolve this issue, you can use a VPN, but success varies depending on the VPN server's location. Experiment with different server locations if you encounter issues. **Disclaimer:** The author of this script is not responsible for any misuse. Please ensure your actions comply with your local laws and regulations.
+
+
 # TikTok Bulk Downloader
 
 With the TikTok ban in about a week, I wanted to download all of the videos in my Favorites list, but realized there isn’t a reliable way to do that, so I threw this together. You do need to follow the instructions here before running the script, but it's fairly straightforward. If anything is unclear please let me know and I will answer your questions and improve the script/this page.
