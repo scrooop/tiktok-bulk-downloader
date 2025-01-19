@@ -1,6 +1,5 @@
-=======
 > [!IMPORTANT]
-> ⚠️ **TikTok is now banned in the United States.** As a result, this script no longer functions from U.S.-based networks. To resolve this issue, you can use a VPN, but success varies depending on the VPN server's location. Experiment with different server locations if you encounter issues. **Disclaimer:** The author of this script is not responsible for any misuse. Please ensure your actions comply with your local laws and regulations.
+> ⚠️ TikTok was briefly shut down in the United States. As a result, this script no longer functioned from U.S.-based networks. At the time of writing this, TikTok is accessible in the U.S. again. If when running this script TikTok is inaccessible in the U.S., you can run it while using a VPN, but success varies depending on the VPN server's location. Experiment with different server locations if you encounter issues. **Disclaimer:** The author of this script is not responsible for any misuse. Please ensure your actions comply with your local laws and regulations.
 
 
 # TikTok Bulk Downloader
