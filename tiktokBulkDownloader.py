@@ -102,10 +102,6 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
     current_time = datetime.now().strftime("%Y-%m-%d_%H-%M")
     failed_log_file = f"{current_time}_failed_downloads_log.txt"
 
-    # Basic constraints for filename length
-    max_path_length = 255
-    ext = ".mp4"
-
     # Track success/failure statistics
     total_links = len(links)
     successful_downloads = 0
@@ -118,7 +114,29 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
             print()
             print(f"[{index}/{total_links}]: {link}")
 
-            # Step 1: Fetch JSON metadata (including upload date, uploader, title)
+            # Define yt-dlp output template with byte-based truncation
+            output_template = os.path.join(
+                download_dir,
+                "%(upload_date).10s - %(uploader).50s - %(title).180B.%(ext)s"
+            )
+
+            # yt-dlp command for downloading the video
+            cmd_download = [
+                "yt-dlp",
+                "--progress",
+                "--no-warnings",
+                "-o", output_template
+            ]
+            if use_watermark:
+                cmd_download += ["--format", "download"]
+            if use_cookies:
+                cmd_download += ["--cookies", "cookies.txt"]
+            cmd_download.append(link)
+
+            print()
+            subprocess.run(cmd_download, check=True)
+
+            # Fetch metadata for logging
             cmd_metadata = ["yt-dlp", "--dump-json"]
             if use_cookies:
                 cmd_metadata += ["--cookies", "cookies.txt"]
@@ -139,85 +157,23 @@ def download_with_ytdlp(links, download_dir, use_cookies=False, use_watermark=Fa
             upload_date = data.get("upload_date", "0000-00-00")
             formatted_date = f"{upload_date[:4]}-{upload_date[4:6]}-{upload_date[6:]}" if upload_date != "0000-00-00" else upload_date
 
-            # Construct metadata dictionary
-            metadata = {
-                "upload_date": formatted_date,
-                "uploader": data.get("uploader", "unknown_uploader"),
-                "title": data.get("title", "Untitled"),
-                "url": link,
-                "duration": data.get("duration", ""),
-                "view_count": data.get("view_count", ""),
-                "like_count": data.get("like_count", ""),
-                "comment_count": data.get("comment_count", ""),
-                "repost_count": data.get("repost_count", ""),
-                "resolution": f"{data.get('height', '')}p" if data.get("height") else "",
-            }
+            # Append metadata to the global list for logging
+            downloaded_metadata.append([
+                formatted_date,
+                data.get("uploader", "unknown_uploader"),
+                data.get("title", "Untitled"),
+                link,
+                f"{formatted_date} - {data.get('uploader', 'unknown_uploader')} - {data.get('title', 'Untitled')}",
+                data.get("duration", ""),
+                data.get("view_count", ""),
+                data.get("like_count", ""),
+                data.get("comment_count", ""),
+                data.get("repost_count", ""),
+                f"{data.get('height', '')}p" if data.get("height") else "",
+            ])
 
-            # Sanitize filename components
-            upload_date_sanit = re.sub(r'[<>:"/\\|?*]', '_', metadata["upload_date"])
-            uploader_sanit = re.sub(r'[<>:"/\\|?*]', '_', metadata["uploader"])
-            title_sanit = re.sub(r'[<>:"/\\|?*]', '_', metadata["title"])
-            combined_filename = f"{upload_date_sanit} - {uploader_sanit} - {title_sanit}"
-
-            def truncate_filename(length):
-                """Helper function to truncate the filename to a specific length."""
-                return combined_filename[:length]
-
-            # Enforce OS constraints
-            available_length = max_path_length - len(os.path.abspath(download_dir)) - len(ext) - 1
-            if len(combined_filename) > available_length:
-                print(f"\n[INFO] Filename truncated: '{combined_filename}' -> '{combined_filename[:available_length]}'")
-                combined_filename = truncate_filename(available_length)
-
-            # Final output path with ".mp4"
-            output_path = os.path.join(download_dir, f"{combined_filename}{ext}")
-
-            # Retry logic for file name too long error
-            for truncation_length in [available_length, 30]:
-                try:
-                    cmd_download = [
-                        "yt-dlp",
-                        "--progress",
-                        "--no-warnings",
-                        "-o", output_path,
-                    ]
-                    if use_watermark:
-                        cmd_download += ["--format", "download"]
-                    if use_cookies:
-                        cmd_download += ["--cookies", "cookies.txt"]
-                    cmd_download.append(link)
-
-                    print()
-                    subprocess.run(cmd_download, check=True)
-
-                    # Append metadata to the global list for logging
-                    downloaded_metadata.append([
-                        metadata["upload_date"],
-                        metadata["uploader"],
-                        metadata["title"],
-                        metadata["url"],
-                        combined_filename,
-                        metadata["duration"],
-                        metadata["view_count"],
-                        metadata["like_count"],
-                        metadata["comment_count"],
-                        metadata["repost_count"],
-                        metadata["resolution"],
-                    ])
-
-                    print(" SUCCESS")
-                    successful_downloads += 1
-                    break
-                except OSError as e:
-                    if "File name too long" in str(e):
-                        print(f"[WARN] Retrying with aggressive truncation ({truncation_length} chars)")
-                        combined_filename = truncate_filename(truncation_length)
-                        output_path = os.path.join(download_dir, f"{combined_filename}{ext}")
-                        continue
-                    raise
-            else:
-                # If it still fails, log the error and move on
-                raise Exception(f"Failed to download {link} after aggressive truncation.")
+            print(" SUCCESS")
+            successful_downloads += 1
 
         except Exception as e:
             print(" FAILED")
