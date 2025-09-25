@@ -355,7 +355,7 @@ Feel free to reach out if you encounter issues or have suggestions for improveme
 ## Donate
 If this helped you and you'd like to donate, you can scan this to donate via Cash App:
 
-![Cash App QR](./images/cashapp-qr.png)
+<img src="./images/cashapp-qr.png" alt="Cash App QR" width="50%">
 
 ---
 
