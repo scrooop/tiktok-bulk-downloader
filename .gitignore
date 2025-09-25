@@ -169,3 +169,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# TikTok Bulk Downloader specific files
+cookies.txt
+links.txt
+*_download_log.csv
+*_failed_downloads_log.txt
+TikTok_Data_*/
+downloads/
+*.mp4
+*.mov
