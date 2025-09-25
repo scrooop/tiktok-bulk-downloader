@@ -24,7 +24,7 @@ This Python script enables users to batch download videos you own or have permis
 
 ### Prerequisites
 
-1. **Python 3.6 or later** is required (the script uses f-strings)
+1. **Python 3.6 or later** is required
    - Check your version: `python3 --version`
    - If you need to install Python, visit [python.org](https://www.python.org/downloads/)
 
@@ -174,6 +174,8 @@ python3 tiktokBulkDownloader.py --creator-id
 ```
 
 ### Build Your Own Format
+
+Examples:
 
 ```bash
 # Include video ID in filename
