@@ -1,9 +1,14 @@
 > [!NOTE]
 > **U.S. TikTok availability:** TikTok remains accessible while a divestiture law is pending enforcement. See **[Legal status & disclosures](#legal-status--disclosures)** for details. *(Updated 2025-09-25)*
 
-# TikTok Bulk Downloader
+<br>
+<br>
 
-In light of ongoing U.S. legal requirements that could restrict TikTok if divestiture isn't completed, this script helps users download their favorite TikTok videos. You do need to follow the instructions here before running the script, but it's fairly straightforward. If anything is unclear please let me know and I will answer your questions and improve the script/this page.
+![TikTok Bulk Downloader](./images/logo.png)
+
+In light of ongoing U.S. legal requirements that could restrict TikTok if divestiture isn't completed, this script helps users download their favorite TikTok videos. You do need to follow the instructions here before running the script, but it's fairly straightforward. If anything is unclear please let me know and I will answer your questions and improve the script/this page. 
+
+**→ This is not an official TikTok tool and is not associated with TikTok in any way.**
 
 This Python script enables users to batch download videos you own or have permission to download using a user-generated list of video URLs (e.g., all of your Favorites, all of your Liked, all videos posted by a specific user, etc.) at once.
 
@@ -339,7 +344,7 @@ Feel free to reach out if you encounter issues or have suggestions for improveme
 ## Donate
 If this helped you and you'd like to donate, you can scan this to donate via Cash App:
 
-![Cash App QR](./donate/cashapp-qr.png)
+![Cash App QR](./images/cashapp-qr.png)
 
 ---
 
