@@ -160,9 +160,8 @@ python3 tiktokBulkDownloader.py --creator-id
 # Creates: creator_7106594312292453675.mp4
 ```
 
-### Build Your Own Format with Simple Variables
+### Build Your Own Format
 
-**NEW! Use simple, human-readable variables:**
 ```bash
 # Include video ID in filename
 python3 tiktokBulkDownloader.py --filename-custom date creator videoID
