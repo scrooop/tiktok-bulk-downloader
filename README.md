@@ -1,5 +1,5 @@
 > [!TIP]
-> &#x26A1; **Version 2.0 Released** — New user-friendly filename customization options are now available. See below for a breakdown of the new features.
+> **→ Version 2.0 Released** — New user-friendly filename customization options are now available. See below for a breakdown of the new features.
 
 <br>
 
