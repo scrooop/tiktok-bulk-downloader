@@ -1,6 +1,8 @@
 > [!NOTE]
 > **U.S. TikTok availability:** TikTok remains accessible while a divestiture law is pending enforcement. See **[Legal status & disclosures](#legal-status--disclosures)** for details. *(Updated 2025-09-25)*
 
+> **Version 2.0 Released!** New user-friendly filename customization options are now available. Use `--filename-custom` to easily include video IDs, custom date formats, and more in your downloaded filenames. Run `--help` for details.
+
 <br>
 
 ![TikTok Bulk Downloader](./images/logo.png)
