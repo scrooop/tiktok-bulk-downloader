@@ -2,11 +2,6 @@
 
 <br>
 
-> [!NOTE]
-> **U.S. TikTok availability:** TikTok remains accessible while a divestiture law is pending enforcement (September 2025). See **[Legal status & disclosures](#legal-status--disclosures)** for details.
-
-<br>
-
 ![TikTok Bulk Downloader](./images/logo.png)
 
 **→ This is not an official TikTok tool and is not associated with TikTok in any way.**
@@ -23,6 +18,13 @@ This Python script enables users to batch download videos you own or have permis
       alt="If this helped you 💚 — Donate via Cash App">
   </a>
 </p>
+
+<br>
+
+> [!NOTE]
+> **U.S. TikTok availability:** TikTok remains accessible while a divestiture law is pending enforcement (September 2025). See **[Legal status & disclosures](#legal-status--disclosures)** for details.
+
+<br>
 
 ## Getting Started
 
