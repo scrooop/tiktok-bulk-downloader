@@ -1,4 +1,4 @@
-```⚡︎ Version 2.0 Released: New user-friendly filename customization options are now available.See below for a breakdown of the new features. You'll need to download the updated script.```
+```⚡︎ Version 2.0 Released: New user-friendly filename customization options are now available. See below for a breakdown of the new features. You'll need to download the updated script.```
 
 <br>
 
