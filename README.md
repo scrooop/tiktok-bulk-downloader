@@ -1,8 +1,6 @@
-> [!TIP]
-> **⚡︎ Version 2.0 Released** — New user-friendly filename customization options are now available. See below for a breakdown of the new features.
-
+`⚡︎ Version 2.0 Released: New user-friendly filename customization options are now available. See below for a breakdown of the new features. You'll need to download the updated script.`
 <br>
-
+<br>
 > [!NOTE]
 > **U.S. TikTok availability:** TikTok remains accessible while a divestiture law is pending enforcement. See **[Legal status & disclosures](#legal-status--disclosures)** for details. *(Updated 2025-09-25)*
 
