@@ -337,7 +337,7 @@ Feel free to reach out if you encounter issues or have suggestions for improveme
 ---
 
 ## Donate
-Scan to tip via Cash App:
+If this helped you and you'd like to donate, you can scan this to donate via Cash App:
 
 ![Cash App QR](./donate/cashapp-qr.png)
 
