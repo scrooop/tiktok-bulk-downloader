@@ -5,9 +5,9 @@
 
 ![TikTok Bulk Downloader](./images/logo.png)
 
-In light of ongoing U.S. legal requirements that could restrict TikTok if divestiture isn't completed, this script helps users download their favorite TikTok videos. You do need to follow the instructions here before running the script, but it's fairly straightforward. If anything is unclear please let me know and I will answer your questions and improve the script/this page. 
-
 **→ This is not an official TikTok tool and is not associated with TikTok in any way.**
+
+In light of ongoing U.S. legal requirements that could restrict TikTok if divestiture isn't completed, this script helps users download their favorite TikTok videos. You do need to follow the instructions here before running the script, but it's fairly straightforward. If anything is unclear please let me know and I will answer your questions and improve the script/this page. 
 
 This Python script enables users to batch download videos you own or have permission to download using a user-generated list of video URLs (e.g., all of your Favorites, all of your Liked, all videos posted by a specific user, etc.) at once.
 
