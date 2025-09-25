@@ -9,8 +9,10 @@ This Python script enables users to batch download videos you own or have permis
 
 <p align="center">
   <a href="#donate">
-    <img src="https://img.shields.io/badge/Donate-Cash%20App-00C244?logo=cashapp&logoColor=white&style=for-the-badge"
-         width="250" alt="Donate via Cash App">
+    <img
+      src="https://img.shields.io/badge/If%20this%20helped%20you%20%F0%9F%92%9A-Donate%20via%20Cash%20App-00C244?logo=cashapp&logoColor=white&style=for-the-badge&labelColor=2b3137"
+      width="400"
+      alt="If this helped you 💚 — Donate via Cash App">
   </a>
 </p>
 
