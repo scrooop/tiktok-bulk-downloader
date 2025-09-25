@@ -73,8 +73,9 @@ This Python script enables users to batch download videos you own or have permis
    - Locate the specific file that contains the video links, such as `Favorite Videos.txt` for favorited videos or `Like List.txt` for liked videos.
    - Use the `--links` argument to specify this file when running the script:
      ```bash
-     python3 tiktokBulkDownloader.py --links <filename>
+     python3 tiktokBulkDownloader.py --links "Favorite Videos.txt"
      ```
+     Note: Always use quotes around filenames, especially if they contain spaces.
    - The script will automatically process the file, extracting the links and creating a pure list of video URLs before proceeding with the download.
 
    #### Method 2: Manually Extract Video Links from Browser
