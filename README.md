@@ -180,19 +180,21 @@ Use `--filename-custom` and then list the items that you want to be included in 
 Examples:
 
 ```bash
-# Include video ID in filename
+# date, creator, video ID
 python3 tiktokBulkDownloader.py --filename-custom date creator videoID
 # Creates: 2024-12-07_username_7106594312292453675.mp4
 
-# Shorter date format
+# shorter date format, video title
 python3 tiktokBulkDownloader.py --filename-custom shortdate title
 # Creates: 241207_video_title.mp4
 
 # Mix and match any variables
 python3 tiktokBulkDownloader.py --filename-custom year month creator title videoID
 # Creates: 2024_12_username_video_title_7106594312292453675.mp4
+```
 
-# See all available variables:
+To list available variables, run:
+```bash
 python3 tiktokBulkDownloader.py --list-variables
 ```
 
