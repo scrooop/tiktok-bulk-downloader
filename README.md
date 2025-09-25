@@ -75,7 +75,7 @@ This Python script enables users to batch download videos you own or have permis
      ```bash
      python3 tiktokBulkDownloader.py --links "Favorite Videos.txt"
      ```
-     Note: Always use quotes around filenames, especially if they contain spaces.
+     Note: Always use quotes around the filenames, especially if they contain spaces.
    - The script will automatically process the file, extracting the links and creating a pure list of video URLs before proceeding with the download.
 
    #### Method 2: Manually Extract Video Links from Browser
