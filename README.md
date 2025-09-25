@@ -339,7 +339,7 @@ Feel free to reach out if you encounter issues or have suggestions for improveme
 ## Donate
 Scan to tip via Cash App:
 
-[pending]
+![Cash App QR](./donate/cashapp-qr.png)
 
 ---
 
