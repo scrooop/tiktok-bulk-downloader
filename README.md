@@ -1,4 +1,3 @@
-=======
 > [!NOTE]
 > **U.S. TikTok availability:** TikTok remains accessible while a divestiture law is pending enforcement. See **[Legal status & disclosures](#legal-status--disclosures)** for details. *(Updated 2025-09-25)*
 
