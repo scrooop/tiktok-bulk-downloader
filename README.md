@@ -175,6 +175,8 @@ python3 tiktokBulkDownloader.py --creator-id
 
 ### Build Your Own Format
 
+Use `--filename-custom` and then list the items that you want to be included in the filename, in the order in which you want them to appear.
+
 Examples:
 
 ```bash
