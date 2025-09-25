@@ -113,9 +113,9 @@ This Python script enables users to batch download videos you own or have permis
    ```
    This expects a `links.txt` file in the same directory with your video URLs.
 
-   **Specify a different file:**
+   **Specify a links file:**
    ```bash
-   python3 tiktokBulkDownloader.py --links "Favorite Videos.txt"
+   python3 tiktokBulkDownloader.py --links "your_links_file.txt"
    ```
 
    **Download a single video:**
