@@ -7,7 +7,12 @@ In light of ongoing U.S. legal requirements that could restrict TikTok if divest
 
 This Python script enables users to batch download videos you own or have permission to download using a user-generated list of video URLs (e.g., all of your Favorites, all of your Liked, all videos posted by a specific user, etc.) at once.
 
-[![Donate](https://img.shields.io/badge/Donate-Cash%20App-lightgrey)](#donate)
+<p align="center">
+  <a href="#donate">
+    <img src="https://img.shields.io/badge/Donate-Cash%20App-00C244?logo=cashapp&logoColor=white&style=for-the-badge"
+         width="250" alt="Donate via Cash App">
+  </a>
+</p>
 
 ## Getting Started
 
